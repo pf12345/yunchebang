@@ -32,7 +32,7 @@
           </div>
         </Col>
         <Col span="2" style="text-align: center">
-          <img style="position: relative;top: 120px;" src="http://localhost:8033/images/leftpoint.png" alt="">
+          <img style="position: relative;top: 120px;" src="/images/leftpoint.png" alt="">
         </Col>
         <Col span="11">
           <div class="border p20">
