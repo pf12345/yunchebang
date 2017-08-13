@@ -48,14 +48,14 @@ module.exports = {
         }
     },*/
     plugins: [
-        // new webpack.optimize.UglifyJsPlugin({
-        //     minimize: true,
-        //     compress:{
-        //         warnings: false,
-        //         drop_debugger: true,
-        //         drop_console: true
-        //     }
-        // }),
+        new webpack.optimize.UglifyJsPlugin({
+            minimize: true,
+            compress:{
+                warnings: false,
+                drop_debugger: true,
+                drop_console: true
+            }
+        }),
         // new ExtractTextPlugin("vue_style.css")
     ],
     watch: true
