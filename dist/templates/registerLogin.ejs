@@ -258,7 +258,7 @@
             loadingToast.hide();
             if(res.errcode === 0) {
               toast.show('注册成功');
-              
+              location.href = '/mobile/registerSuccess';  
             } else {
               warning.show(res.message);
             }
