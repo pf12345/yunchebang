@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0,user-scalable=no" name="viewport">
+    <title>云车邦</title>
+    <link rel="stylesheet" href="/libs/css/weui.css">
+  </head>
+  <style>
+  html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    /*font-size: 12px;*/
+  }
+  body {
+    padding: 4%;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  #logo {
+    text-align: center;
+    margin-top: 13%;
+    height: 16%
+  }
+  #logo img {
+    width: 33%;
+  }
+  #container {
+    height: 84%;
+    position: relative;
+  }
+  #container ul::after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+  #container ul li{
+    float: left;
+    list-style: none;
+    width: 50%;
+    text-align: center;
+    font-size: 1.4em;
+    border-bottom: 1px solid #d3dee3;
+    padding: 15px 0;
+  }
+  #container ul li.selected {
+    color: #2391e2;
+  }
+  #container .line {
+    height: 3px;
+    width: 50%;
+    position: absolute;
+    bottom: 0;
+    background: #2391e2;
+    transition: all 300ms;
+    left: 0;
+  }
+  .right {
+    left: 50%;
+  }
+  .inputItem {
+    height: 15%;
+    position: relative;
+    border-bottom: 1px solid #d3dee3;
+  }
+  .inputItem img {
+    position: absolute;
+    height: 50%;
+    vertical-align: middle;
+    top: 25%;
+  }
+  .inputItem input {
+    height: 100%;
+      width: 100%;
+      border: none;
+      padding-left: 15%;
+      font-size: 1.2em;
+  }
+  input,button,select,textarea{outline:none}
+  input:active, input:focus, input:visited {
+    border: none;
+  }
+  .weui-btn_primary, .weui-btn_primary:active,
+  .weui-btn_mini, .weui-btn_mini:active {
+    background-color: #2391e2 !important;
+  }
+  .weui-btn_mini {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    padding: 0.5em 1.32em;
+  }
+  .weui-warning {
+    position: fixed;
+    z-index: 5000;
+    height: 50px;
+    top: 180px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #FFFFFF;
+  }
+  .weui-warning > span {
+    padding: 10px 20px;
+    background: rgba(17, 17, 17, 0.7);
+    display: inline-block;
+    border-radius: 5px;
+  }
+  #footer {
+    margin-top: 15%;
+  }
+  </style>
+  <body>
+    <div id="logo">
+      <img src="/images/logoBlue.png"/>
+    </div>
+    <div id="container">
+      <div style="position: relative">
+        <ul>
+          <li class="selected" type="consignor">
+            注册货主
+          </li>
+          <li type="car">注册车主</li>
+        </ul>
+        <div class="line"></div>
+      </div>
+      <div class="inputItem">
+        <img src="/images/phone.jpg" alt="">
+        <input type="number" id="phone" placeholder="请输入手机号">
+      </div>
+      <div class="inputItem" style="border: none;">
+        <img src="/images/yaoshi.jpg" alt="">
+        <input type="number" id="phoneCode" placeholder="请输入手机验证码">
+        <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary" id="getVerifyCode">获取验证码</a>
+      </div>
+
+      <div id="footer">
+        <a href="javascript:;" id="registerBtn" class="weui-btn weui-btn_primary">确认注册</a>
+      </div>
+      <!-- loading toast -->
+    <div id="loadingToast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-loading weui-icon_toast"></i>
+            <p class="weui-toast__content">数据加载中</p>
+        </div>
+    </div>
+
+    <div id="toast" style="display: none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">已完成</p>
+        </div>
+    </div>
+
+    <div id="warning" style="display: none">
+      <div class="weui-mask_transparent"></div>
+      <div class="weui-warning">
+        <span class="weui-toast__content"></span>
+      </div>
+    </div>
+    </div>
+    <script src="/libs/js/jquery.js"></script>
+    <script>
+      var loadingToast = {
+        show: function() {
+          var $loadingToast = $('#loadingToast');
+          if ($loadingToast.css('display') != 'none') return;
+          $loadingToast.fadeIn(200);
+        },
+        hide: function() {
+          var $loadingToast = $('#loadingToast');
+          $loadingToast.fadeOut(200);
+        }
+      }
+      var toast = {
+        show: function(str) {
+          var $toast = $('#toast');
+          $toast.find('.weui-toast__content').html(str);
+          if ($toast.css('display') != 'none') return;
+            $toast.fadeIn(200);
+            setTimeout(function () {
+                $toast.fadeOut(200);
+            }, 2000);
+        }
+      }
+      var warning = {
+        show: function(str) {
+          var $warning = $('#warning');
+          $warning.find('.weui-toast__content').html(str);
+          if ($warning.css('display') != 'none') return;
+            $warning.fadeIn(200);
+            setTimeout(function () {
+                $warning.fadeOut(200);
+            }, 2000);
+        }
+      }
+      $(document).ready(function() {
+        var $phone = $('#phone'), $phoneCode = $('#phoneCode');
+        $('#container li').click(function() {
+          var type = $(this).attr('type');
+          $('#container li').removeClass('selected');
+          $(this).addClass('selected');
+          if(type == 'consignor') {
+            $('.line').attr('style', 'left: 0');
+          } else {
+            $('.line').attr('style', 'left: 50%');
+          }
+        })
+        $('#getVerifyCode').click(function() {
+          var _phone = $phone.val();
+          if(!_phone) {
+            warning.show('请输入手机号码！');
+            return false;
+          }
+          if(_phone.length != 11 || !Number(_phone)) {
+            warning.show('请输入正确的手机号码！');
+            return false;
+          }
+          loadingToast.show();
+          var url = 'http://39.108.113.222/api/v1/verify-code/get?cellphone='+_phone+'&use_type=login'
+          $.get(url, function(res) {
+            loadingToast.hide();
+            if(res.errcode === 0) {
+              toast.show('获取成功')
+            } else {
+              warning.show(res.message);
+            }
+          })
+        });
+        $('#registerBtn').click(function() {
+          var _phone = $phone.val();
+          var _phoneCode = $phoneCode.val();
+          var _type = $('#container .selected').attr('type');
+          if(!_phone) {
+            warning.show('请输入手机号码！');
+            return false;
+          }
+          if(_phone.length != 11 || !Number(_phone)) {
+            warning.show('请输入正确的手机号码！');
+            return false;
+          }
+          if(!_phoneCode) {
+            warning.show('请输入手机验证码！');
+            return false;
+          }
+          loadingToast.show();
+          //user_type  1 车主 2 货主 3 小二
+          $.post("http://39.108.113.222/api/v1/users/login-verifycode",{
+            cellphone: _phone,
+            verify_code: _phoneCode,
+            user_type: _type == 'consignor' ? 2 : 1
+          },function(res){
+            loadingToast.hide();
+            if(res.errcode === 0) {
+              toast.show('注册成功');
+              
+            } else {
+              warning.show(res.message);
+            }
+          });
+        })
+      })
+    </script>
+  </body>
+</html>
