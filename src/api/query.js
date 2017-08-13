@@ -1,7 +1,8 @@
 
 import $ from 'jquery';
 var domain = 'http://39.108.113.222/api/v1';
-var ajaxDomain = 'http://127.0.0.1:8033'
+// var ajaxDomain = 'http://127.0.0.1:8033'
+var ajaxDomain = ''
 
 export default {
   ajaxPost({url, params}, succ, err) {
