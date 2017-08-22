@@ -169,6 +169,7 @@ const actions = {
     fahuo.addOrder(params, function(res) {
       if(vue) {
         vue.$Message.success(res.message);
+        window.location.href = '/#/orderForm';
       }
     })
   }

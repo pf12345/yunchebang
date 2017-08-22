@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 import App from './App.vue'
 import router from './router'
 import iView from 'iview';
+import './test.ts';
 // import './../dist/libs/css/iview.css'; // 使用 CSS
 
 

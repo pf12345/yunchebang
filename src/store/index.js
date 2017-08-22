@@ -7,6 +7,7 @@ import common from './modules/common'
 import map from './modules/map'
 import fahuo from './modules/fahuo'
 import cheyuanInfo from './modules/cheyuanInfo'
+import orderForm from './modules/orderForm'
 
 
 Vue.use(Vuex)
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     common,
     map,
     fahuo,
-    cheyuanInfo
+    cheyuanInfo,
+    orderForm
   }
 })

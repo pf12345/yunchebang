@@ -7,6 +7,7 @@ import Index from './../components/Index.vue'
 import tradingQuotations from './../components/tradingQuotations.vue'
 import fahuo from './../components/fahuo.vue'
 import cheyuanInfo from './../components/cheyuanInfo.vue'
+import orderForm from './../components/orderForm.vue'
 
 
 Vue.use(Router)
@@ -45,6 +46,15 @@ export default new Router({
       components: {
         left: leftMenu,
         content: cheyuanInfo,
+        top: top
+      }
+    },
+    {
+      path: '/orderForm',
+      name: '订单',
+      components: {
+        left: leftMenu,
+        content: orderForm,
         top: top
       }
     }

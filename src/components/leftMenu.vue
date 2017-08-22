@@ -8,7 +8,7 @@
         <li :class="curLeftMenu == 'tradingQuotations' ? 'selected' : ''" @click="leftNavSelect('tradingQuotations')">交易行情</li>
         <li :class="curLeftMenu == 'cheyuanInfo' ? 'selected' : ''" @click="leftNavSelect('cheyuanInfo')">车源信息</li>
         <li :class="curLeftMenu == 'fahuo' ? 'selected' : ''" @click="leftNavSelect('fahuo')">我要发货</li>
-        <li :class="curLeftMenu == 'wode' ? 'selected' : ''" @click="leftNavSelect('wode')">我的</li>
+        <li :class="curLeftMenu == 'orderForm' ? 'selected' : ''" @click="leftNavSelect('orderForm')">订单</li>
       </ul>
     </div>
   </div>
