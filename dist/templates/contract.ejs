@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0,user-scalable=no" name="viewport">
+    <title>货物运输合同</title>
+    <link rel="stylesheet" href="/static/css/app.css">
+    <style>
+      #container {
+        padding: 20px;
+        font-size: 14px;
+      }
+      h2 {
+        text-align: center;
+      }
+      ._top {
+        display: -webkit-flex; /* Safari */
+         display: flex;
+      }
+      ._top > div {
+        flex-grow: 1;
+        flex-direction: row
+      }
+      td {
+        padding: 0 5px;
+      }
+      td p {
+        text-indent: 2em;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h2>货物运输合同</h2>
+      <div class="_top">
+        <div>合同编号：</div>
+        <div>签订时间：</div>
+        <div>签订地点：</div>
+      </div>
+      <table border="1" cellspacing="0" cellpadding="0" width="100%">
+        <tr>
+          <td width="12%">托运方：</td>
+          <td width="20%"><%=detail.order.cargo_owner_name%></td>
+          <td width="12%">承运方：</td>
+          <td width="24%"><%=detail.vehicle_owner.ext_info.name%></td>
+          <td width="12%">信息方：</td>
+          <td width="20%"></td>
+        </tr>
+        <tr>
+          <td width="12%">货物名称：</td>
+          <td width="20%"><%=detail.order.cargo_name%></td>
+          <td width="12%">联系电话：</td>
+          <td width="24%"><%=detail.vehicle_owner.cellphone%></td>
+          <td width="12%">联系人：</td>
+          <td width="20%"></td>
+        </tr>
+        <tr>
+          <td width="12%">启运地：</td>
+          <td width="20%"><%=detail.order.cargo_city%></td>
+          <td width="12%">身份证号：</td>
+          <td width="24%"><%=detail.vehicle_owner.ext_info.id_card_num%></td>
+          <td width="12%">联系电话：</td>
+          <td width="20%"></td>
+        </tr>
+        <tr>
+          <td width="12%">目的地：</td>
+          <td width="20%"><%=detail.order.consignee_city%></td>
+          <td width="12%">车牌号：</td>
+          <td width="24%"><%=detail.vehicle_owner.vehicle.plate_number%></td>
+          <td width="32%" colspan="2" rowspan="7" style="vertical-align: top;">
+            <h4>三：信息房义务与责任</h4>
+            <p>1、信息房应向托运方提供承运车辆和司机的行驶证、身份证、驾驶证等相关证件的复印件，并核对相关证件的真实性和有效性。如因上述证件虚假或不齐备，造成运输途中拖延或者扣押，给托运方带来的经济损失由信息方承担。</p>
+	          <p>2、信息方应确保托运方和承运方的沟通顺畅，协助双方办理各项手续，积极配合双方正常履约。</p>
+            <div style="margin-top: 10px;">四：本合同壹式叁份，托运方、承运方和信息方各执壹份，经各方签章后生效，传真件具有同等法律效力。货物运抵指定交货地点交付验收合格，票款结清后自动失效。</div>
+            <div style="margin-top: 10px;">五：遇到争议时，由三方友好协商解决，协商不成，在托运方所在地人民法院依法提起诉讼。</div>
+
+          </td>
+        </tr>
+        <tr>
+          <td width="12%">运抵日期：</td>
+          <td width="20%"></td>
+          <td width="12%">驾驶证号：</td>
+          <td width="24%"></td>
+        </tr>
+        <tr>
+          <td width="12%">收货人：</td>
+          <td width="20%"><%=detail.order.consignee%></td>
+          <td width="12%">行驶证号：</td>
+          <td width="24%"></td>
+        </tr>
+        <tr>
+          <td width="12%">联系电话：</td>
+          <td width="20%"><%=detail.order.consignee_cellphone%></td>
+          <td width="12%">乙方账号：</td>
+          <td width="24%"><%=detail.vehicle_owner.bank_card_num%></td>
+        </tr>
+        <tr>
+          <td width="12%">运价：</td>
+          <td width="20%"><%=detail.order.freight%>元/<%=detail.order.freight_unit%></td>
+          <td width="12%">住址：</td>
+          <td width="24%"><%=detail.vehicle_owner.ext_info.address%></td>
+        </tr>
+        <tr>
+          <td width="12%">结算重量：</td>
+          <td width="20%">按实际过磅重量结算</td>
+          <td width="12%">结算方式：</td>
+          <td width="24%"><%=detail.order.payer_desc%></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="vertical-align: top;">
+            <h4>一：托运方义务与责任</h4>
+            <p>1、托运方应及时将货物的存放地点、数量、装货时间等相关情况告知承运方，确保承运方能顺利装载货物。</p>
+	          <p>2、承运方按时将货物完好无损送至托运方制定地点后，托运方按约定及时支付承运方运输费用。</p>
+            <h4>二：承运方义务与责任</h4>
+            <p>1、承运方应向信息方提供承运车辆和司机的行驶证、身份证、驾驶证等相关证件的复印件，并保证相关证件的真实性和有效性。</p>
+            <p>2、承运方在货物装车时，必须当面点清货物件数、支数和块数，确认过磅重量和单据重量是否相符，并当场在发货明细单上确认签字。</p>
+          </td>
+          <td colspan="2" style="vertical-align: top;">
+            <p>3、承运方在运输途中不许中途换车，确因特殊原因（仅限于故障、交通事故和不可抗力）需要换车，必须经托运方书面或传真同意。否则由此引起托运方货物损失或延误交货造成的损失均由承运方承担。</p>
+            <p>4、承运方必须做好防雨、防潮、防火、防盗等措施，货物从装车后到交付托运方指定收货人签收之前发生的毁损、灭失以及由此造成的一切经济损失均由承运方承担。</p>
+            <p>5、承运方应严格按照托运方指定的地址送货，如未经托运方同意擅自变更送货地点的，按造成的实际损失对托运方予以赔偿。</p>
+            <p>6、承运方必须将货物准时送达托运方指定的收货地点。因承运方责任（不可抗力因素除外）造成货物延迟送达，导致收货单位拒收货物或退货，由此产生的费用和经济损失由承运方承担。</p>
+            <p>7、运输途中产生的过路、过桥、摆渡等一切费用均由承运方承担。</p>
+            <p>8、合同有效期内，承运方不得以任何理由扣押托运方托运货物，如出现此情况，承运方应承担扣押货物价值贰倍的违约金，并返还托运方被扣押的货物，由此造成的一切损失由承运方承担。</p>
+          </td>
+        </tr>
+        <tr>
+          <td width="12%">托运方(公章)</td>
+          <td width="20%"></td>
+          <td width="12%">承运方姓名：</td>
+          <td width="24%"></td>
+          <td width="12%">信息方(公章)</td>
+          <td width="20%"></td>
+        </tr>
+        <tr>
+          <td width="12%">委托代理人：</td>
+          <td width="20%"></td>
+          <td width="12%">私章／手印</td>
+          <td width="24%"></td>
+          <td width="12%">委托代理人：</td>
+          <td width="20%"></td>
+        </tr>
+      </table>
+    </div>
+    <script>
+      window.print();
+    </script>
+  </body>
+</html>

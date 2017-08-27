@@ -192,7 +192,7 @@
       <div class="border d_top" style="padding: 10px;">
         <span>{{orderFormDetail.status_desc}}</span>
         <span class="orderBianhao">订单编号：{{orderFormDetail.id}}</span>
-        <a style="float: right;margin-right: 10px;">打印合同</a>
+        <a style="float: right;margin-right: 10px;" :href="contractUrl" target="_blank">打印合同</a>
       </div>
       <div class="border d_upload" v-if="orderFormDetail.order_rating">
         <div class="item_top">
@@ -292,7 +292,8 @@ export default {
     orderFormListTotal: 'orderFormListTotal',
     orderFormListProcessTotal: 'orderFormListProcessTotal',
     orderFormListComfirmedTotal: 'orderFormListComfirmedTotal',
-    orderFormDetail: 'orderFormDetail'
+    orderFormDetail: 'orderFormDetail',
+    contractUrl: 'contractUrl'
   }),
   methods: {
     changeTabs(name) {

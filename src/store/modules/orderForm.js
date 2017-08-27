@@ -3,6 +3,7 @@ import orderForm from '../../api/orderForm'
 const orderFormListPageSize = 6;
 
 const state = {
+  contractUrl: '/print/contract/',
   listType: 'all', //all, process, comfirmed
   orderFormListPageSize: orderFormListPageSize,
   orderFormListCurrent: 1,
@@ -74,7 +75,8 @@ const getters = {
   orderFormListTotal: state => state.orderFormListTotal,
   orderFormListProcessTotal: state => state.orderFormListProcessTotal,
   orderFormListComfirmedTotal: state => state.orderFormListComfirmedTotal,
-  orderFormDetail: state => state.orderFormDetail
+  orderFormDetail: state => state.orderFormDetail,
+  contractUrl: state => state.contractUrl
 }
 
 const actions = {
@@ -101,6 +103,7 @@ const actions = {
     commit(types.REST_ORDER_FORM_FILTER, type);
   },
   showOrderFormDetail({commit}, item) {
+    state.contractUrl = '/print/contract/'+item.id;
     orderForm.getOrderFromDetail({id: item.id}, (res) => {
       commit(types.SHOW_ORDER_FORM_DETAIL, res);
     })

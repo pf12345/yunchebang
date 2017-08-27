@@ -42359,16 +42359,7 @@ module.exports = Component.exports
 });
 
 /***/ }),
-/* 137 */
-/***/ (function(module, exports) {
-
-function b(config) {
-    console.log(config.name);
-}
-b({ name: "my name is typescript" });
-
-
-/***/ }),
+/* 137 */,
 /* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42490,8 +42481,200 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-exports.default = {};
+exports.default = {
+  data: function data() {
+    return {
+      value1: 0
+    };
+  },
+
+  methods: {
+    goAnchor: function goAnchor(selector) {
+      var anchor = document.querySelector(selector);
+      $('#indexContainer').animate({ scrollTop: anchor.offsetTop }, 500);
+    }
+  }
+};
 
 /***/ }),
 /* 141 */
@@ -43035,7 +43218,8 @@ exports.default = {
     orderFormListTotal: 'orderFormListTotal',
     orderFormListProcessTotal: 'orderFormListProcessTotal',
     orderFormListComfirmedTotal: 'orderFormListComfirmedTotal',
-    orderFormDetail: 'orderFormDetail'
+    orderFormDetail: 'orderFormDetail',
+    contractUrl: 'contractUrl'
   }),
   methods: {
     changeTabs: function changeTabs(name) {
@@ -43599,19 +43783,19 @@ var _iview = __webpack_require__(136);
 
 var _iview2 = _interopRequireDefault(_iview);
 
-__webpack_require__(137);
-
 var _store = __webpack_require__(134);
 
 var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 _vue2.default.use(_vuex2.default);
+// import './test.ts';
 // import './../dist/libs/css/iview.css'; // 使用 CSS
 
+
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 
 _vue2.default.use(_iview2.default);
 
@@ -44423,6 +44607,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var orderFormListPageSize = 6;
 
 var state = {
+  contractUrl: '/print/contract/',
   listType: 'all', //all, process, comfirmed
   orderFormListPageSize: orderFormListPageSize,
   orderFormListCurrent: 1,
@@ -44518,6 +44703,9 @@ var getters = {
   },
   orderFormDetail: function orderFormDetail(state) {
     return state.orderFormDetail;
+  },
+  contractUrl: function contractUrl(state) {
+    return state.contractUrl;
   }
 };
 
@@ -44555,6 +44743,7 @@ var actions = {
   showOrderFormDetail: function showOrderFormDetail(_ref5, item) {
     var commit = _ref5.commit;
 
+    state.contractUrl = '/print/contract/' + item.id;
     _orderForm2.default.getOrderFromDetail({ id: item.id }, function (res) {
       commit(types.SHOW_ORDER_FORM_DETAIL, res);
     });
@@ -49426,7 +49615,7 @@ exports = module.exports = __webpack_require__(33)(undefined);
 
 
 // module
-exports.push([module.i, "\n.layout{\n  background: #fff;\n  position: relative;\n  overflow: hidden;\n}\nh3 {\n  padding: 20px 0;\n  font-size: 18px;\n  font-weight: 300;\n}\nh4 {\n  padding: 0 0 15px;\n}\n.border {\n  border: 1px solid #dadada;\n  border-radius: 5px;\n}\n.p20 {\n  padding: 20px;\n}\n.mt20 {\n  margin-top: 20px;\n}\n#app {\n  font-family: 'Avenir', Helvetica, Arial, sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  color: #000;\n  font-size: 14px;\n}\n#app .left {\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 140px;\n  bottom: 0;\n  background: #2391e2;\n}\n#app .left > ul {\n  height: 100%;\n  background: #f5f7f9;\n}\n#app .content {\n  position: fixed;\n  left: 140px;\n  top: 40PX;\n  bottom: 0;\n  right: 0;\n  padding: 0 20px;\n  overflow: auto;\n}\n#app .warp_content {\n  padding: 20px;\n}\n#app .top {\n  height: 40px;\n  line-height: 40px;\n  background: #f4f4f4;\n  position: relative;\n  margin-left: 140px;\n}\n", ""]);
+exports.push([module.i, "\n.layout{\n  background: #fff;\n  position: relative;\n  overflow: hidden;\n}\nh3 {\n  padding: 20px 0;\n  font-size: 18px;\n  font-weight: 300;\n}\nh4 {\n  padding: 0 0 15px;\n}\n.border {\n  border: 1px solid #dadada;\n  border-radius: 5px;\n}\n.p20 {\n  padding: 20px;\n}\n.mt20 {\n  margin-top: 20px;\n}\n#app {\n  font-family: 'Avenir', Helvetica, Arial, sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  color: #000;\n  font-size: 14px;\n}\n#app .app_left {\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 140px;\n  bottom: 0;\n  background: #2391e2;\n}\n#app .app_left > ul {\n  height: 100%;\n  background: #f5f7f9;\n}\n#app .content {\n  position: fixed;\n  left: 140px;\n  top: 40PX;\n  bottom: 0;\n  right: 0;\n  padding: 0 20px;\n  overflow: auto;\n}\n#app .warp_content {\n  padding: 20px;\n}\n#app .app_top {\n  height: 40px;\n  line-height: 40px;\n  background: #f4f4f4;\n  position: relative;\n  margin-left: 140px;\n}\n", ""]);
 
 // exports
 
@@ -49454,7 +49643,7 @@ exports = module.exports = __webpack_require__(33)(undefined);
 
 
 // module
-exports.push([module.i, "\n.header[data-v-e0a92362] {\n  height: 60px;\n  width: 100%;\n}\n.logo[data-v-e0a92362] {\n  width: 33%;\n  min-width: 100px;\n  display: inline-block;\n  text-align: center;\n  height: 60px;\n  line-height: 60px;\n}\n.nav[data-v-e0a92362] {\n  position: absolute;\n  right: 60px;\n  top: 10px;\n  line-height: 1;\n}\n.nav li[data-v-e0a92362] {\n  float: left;\n  padding: 10px;\n  font-size: 14px;\n}\n", ""]);
+exports.push([module.i, "\n#app .indexContainer[data-v-e0a92362] {\n  left: 0;\n  top: 0;\n  padding: 0;\n  transition: all 2s;\n  -moz-transition: all 2s; /* Firefox 4 */\n  -webkit-transition: all 2s; /* Safari 和 Chrome */\n  -o-transition: all 2s; /* Opera */\n}\n.header[data-v-e0a92362] {\n  height: 110px;\n  width: 1200px;\n  margin: auto;\n  padding-top: 30px;\n}\n.logo[data-v-e0a92362] {\n  display: inline-block;\n}\n.logo img[data-v-e0a92362] {\n  height: 60px;\n}\n.nav[data-v-e0a92362] {\n  float: right;\n}\n.nav li[data-v-e0a92362] {\n  float: left;\n  padding: 10px 20px;\n  font-size: 24px;\n}\n.nav li[data-v-e0a92362]:hover {\n  cursor: pointer;\n}\n.ads img[data-v-e0a92362] {\n  width: 100%;\n}\n.service[data-v-e0a92362] {\n  margin-top: 40px;\n}\n.service h1[data-v-e0a92362] {\n  text-align: center;\n  font-size: 32px;\n  font-weight: 100;\n}\n.service_items[data-v-e0a92362] {\n  width: 1200px;\n  margin: auto;\n}\n.service_items .item[data-v-e0a92362] {\n  display: inline-block;\n  width: 536px;\n  height: 310px;\n  margin: 60px 0 0;\n}\n.service_items .item[data-v-e0a92362]:nth-of-type(2n) {\n  float: right;\n}\n.service_items .item_img[data-v-e0a92362] {\n  width: 235px;\n  height: 100%;\n  display: inline-block;\n  background: #f4d59c;\n}\n.service_items .item_label[data-v-e0a92362] {\n  width: 300px;\n  height: 100%;\n  display: inline-block;\n  float: right;\n  padding: 20px;\n}\n.service_items .item_label p[data-v-e0a92362] {\n  font-size: 32px;\n  color: #fff;\n}\n.service_items .item_label p[data-v-e0a92362]:first-of-type {\n  text-decoration: underline;\n  margin-bottom: 10px;\n}\n.banner_bottom[data-v-e0a92362] {\n  height: 420px;\n  width: 100%;\n  background: url('/images/banner_bottom.png') no-repeat;\n  margin: 40px 0 0;\n  line-height: 420px;\n  font-size: 50px;\n  text-align: center;\n  font-weight: 600;\n}\n.company_info[data-v-e0a92362] {\n  height: 360px;\n  background: #283c51;\n  width: 100%;\n}\n.company_info_items[data-v-e0a92362] {\n  width: 1200px;\n  margin: auto;\n  height: 100%;\n}\n.company_info_items .company_info_item[data-v-e0a92362] {\n  display: inline-block;\n  height: 100%;\n}\n.company_info_items li[data-v-e0a92362] {\n  float: left;\n  font-size: 30px;\n  color: #fff;\n  padding: 50px 40px 130px 0;\n  font-weight: 600;\n}\n.company_info_items p[data-v-e0a92362] {\n  font-size: 24px;\n  color: #fff;\n  margin-top: 20px;\n}\n.company_info_qcodes > div[data-v-e0a92362] {\n  margin: 50px 0 0 40px;\n}\n.company_info_qcodes > div p[data-v-e0a92362] {\n  text-align: center;\n  font-size: 16px;\n  margin: 0;\n}\n.copyright[data-v-e0a92362] {\n  height: 100px;\n  width: 100%;\n  background: #fff;\n  padding-top: 20px;\n}\n.copyright p[data-v-e0a92362] {\n  text-align: center;\n  padding: 10px 0 0;\n}\n.login_btn[data-v-e0a92362] {\n  background: #2391e2;\n  border-radius: 28px;\n  color: #fff;\n  margin-left: 30px;\n}\n", ""]);
 
 // exports
 
@@ -62007,6 +62196,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "float": "right",
       "margin-right": "10px"
+    },
+    attrs: {
+      "href": _vm.contractUrl,
+      "target": "_blank"
     }
   }, [_vm._v("打印合同")])]), _vm._v(" "), (_vm.orderFormDetail.order_rating) ? _c('div', {
     staticClass: "border d_upload"
@@ -62184,7 +62377,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "layout"
   }, [_c('router-view', {
-    staticClass: "view left",
+    staticClass: "view app_left",
     attrs: {
       "name": "left"
     }
@@ -62194,7 +62387,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "content"
     }
   }), _vm._v(" "), _c('router-view', {
-    staticClass: "view top",
+    staticClass: "view app_top",
     attrs: {
       "name": "top"
     }
@@ -62231,22 +62424,182 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "indexContainer"
-  }, [_c('div', {
-    staticClass: "header"
-  }, [_c('div', {
-    staticClass: "logo"
-  }, [_vm._v("\n      云车邦\n    ")]), _vm._v(" "), _c('div', {
-    staticClass: "nav"
-  }, [_c('ul', [_c('li', [_vm._v("首页")]), _vm._v(" "), _c('li', [_vm._v("企业流程")]), _vm._v(" "), _c('li', [_vm._v("关于我们")]), _vm._v(" "), _c('li', [_vm._v("货主登录")]), _vm._v(" "), _c('li', [_c('Icon', {
-    staticStyle: {
-      "margin-right": "5px"
-    },
+    staticClass: "indexContainer",
     attrs: {
-      "type": "android-phone-portrait"
+      "id": "indexContainer"
     }
-  }), _vm._v("进入APP")], 1)])])])])
-},staticRenderFns: []}
+  }, [_c('div', {
+    staticClass: "header",
+    attrs: {
+      "id": "anchor-0"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "nav"
+  }, [_c('ul', [_c('li', {
+    on: {
+      "click": function($event) {
+        _vm.goAnchor('#anchor-0')
+      }
+    }
+  }, [_vm._v("首页")]), _vm._v(" "), _c('li', {
+    on: {
+      "click": function($event) {
+        _vm.goAnchor('#anchor-1')
+      }
+    }
+  }, [_vm._v("业务流程")]), _vm._v(" "), _c('li', {
+    on: {
+      "click": function($event) {
+        _vm.goAnchor('#anchor-2')
+      }
+    }
+  }, [_vm._v("关于我们")]), _vm._v(" "), _c('li', {
+    staticClass: "login_btn"
+  }, [_vm._v("货主登录")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "ads"
+  }, [_c('Carousel', {
+    attrs: {
+      "autoplay": "",
+      "arrow": "never",
+      "autoplay-speed": 4000
+    },
+    model: {
+      value: (_vm.value1),
+      callback: function($$v) {
+        _vm.value1 = $$v
+      },
+      expression: "value1"
+    }
+  }, [_c('Carousel-item', [_c('img', {
+    attrs: {
+      "src": "/images/ad1.png",
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('Carousel-item', [_c('img', {
+    attrs: {
+      "src": "/images/ad2.png",
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('Carousel-item', [_c('img', {
+    attrs: {
+      "src": "/images/ad3.png",
+      "alt": ""
+    }
+  })])], 1)], 1), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "banner_bottom",
+    attrs: {
+      "id": "anchor-2"
+    }
+  }, [_vm._v("\n    随时随地就近装车找货\n  ")]), _vm._v(" "), _c('div', {
+    staticClass: "company_info"
+  }, [_c('div', {
+    staticClass: "company_info_items"
+  }, [_c('div', {
+    staticClass: "company_info_item"
+  }, [_c('ul', [_c('li', [_vm._v("云车邦")]), _vm._v(" "), _c('li', {
+    on: {
+      "click": function($event) {
+        _vm.goAnchor('#anchor-0')
+      }
+    }
+  }, [_vm._v("首页")]), _vm._v(" "), _c('li', {
+    on: {
+      "click": function($event) {
+        _vm.goAnchor('#anchor-1')
+      }
+    }
+  }, [_vm._v("业务流程")]), _vm._v(" "), _c('li', {
+    on: {
+      "click": function($event) {
+        _vm.goAnchor('#anchor-2')
+      }
+    }
+  }, [_vm._v("关于我们")])]), _vm._v(" "), _c('p', [_vm._v("客服电话：028-82938123")]), _vm._v(" "), _c('p', [_vm._v("公司地址：四川省成都市一环路52号云车邦大厦")])]), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _vm._m(3)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "logo"
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/logoBlue.png",
+      "alt": ""
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "service",
+    attrs: {
+      "id": "anchor-1"
+    }
+  }, [_c('h1', {
+    staticStyle: {
+      "font-weight": "600"
+    }
+  }, [_vm._v("业务流程")]), _vm._v(" "), _c('h1', {
+    staticStyle: {
+      "letter-spacing": "3px",
+      "color": "#999"
+    }
+  }, [_vm._v("service")]), _vm._v(" "), _c('div', {
+    staticClass: "service_items"
+  }, [_c('div', {
+    staticClass: "item"
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/service1.png",
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/service2.png",
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/service3.png",
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "item"
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/service4.png",
+      "alt": ""
+    }
+  })])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "company_info_item company_info_qcodes",
+    staticStyle: {
+      "float": "right"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "display": "inline-block"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/qcode.png",
+      "alt": ""
+    }
+  }), _vm._v(" "), _c('br'), _vm._v(" "), _c('p', [_vm._v("云车邦货主端")])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "display": "inline-block"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": "/images/qcode.png",
+      "alt": ""
+    }
+  }), _vm._v(" "), _c('br'), _vm._v(" "), _c('p', [_vm._v("云车邦司机端")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "copyright"
+  }, [_c('p', [_vm._v("版权所有 2007-2016 © 2016 517NA.COM AI | RIGHTS RESERVED")]), _vm._v(" "), _c('p', [_vm._v("四川云车邦科技股份有限公司 蜀ICP备08104680号 京公网安备1101054283")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

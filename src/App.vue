@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="layout">
-      <router-view class="view left" name="left"></router-view>
+      <router-view class="view app_left" name="left"></router-view>
       <router-view class="view content" name="content"></router-view>
-      <router-view class="view top" name="top"></router-view>
+      <router-view class="view app_top" name="top"></router-view>
     </div>
   </div>
 </template>
@@ -45,7 +45,7 @@ h4 {
   color: #000;
   font-size: 14px;
 }
-#app .left {
+#app .app_left {
   position: fixed;
   left: 0;
   top: 0;
@@ -53,7 +53,7 @@ h4 {
   bottom: 0;
   background: #2391e2;
 }
-#app .left > ul {
+#app .app_left > ul {
   height: 100%;
   background: #f5f7f9;
 }
@@ -69,7 +69,7 @@ h4 {
 #app .warp_content {
   padding: 20px;
 }
-#app .top {
+#app .app_top {
   height: 40px;
   line-height: 40px;
   background: #f4f4f4;
