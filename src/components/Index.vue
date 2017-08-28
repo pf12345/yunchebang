@@ -9,11 +9,32 @@
           <li @click="goAnchor('#anchor-0')">首页</li>
           <li @click="goAnchor('#anchor-1')">业务流程</li>
           <li @click="goAnchor('#anchor-2')">关于我们</li>
-          <li class="login_btn">货主登录</li>
+          <li class="login_btn" @click="showLoginPanel">货主登录</li>
         </ul>
       </div>
     </div>
     <div class="ads">
+      <div id="loginContainer" v-if="showLogin">
+        <div class="login" id="login">
+          <h3>登录</h3>
+          <p><input v-model="phone" style="width: 214px" placeholder="请输入手机号"></input></p>
+          <p class="imgCode">
+            <input v-model="imgCode" style="width: 100px" placeholder="请输入校验码"></input>
+            <img :src="imgCodeUrl" alt="" @click="getNewImgCode">
+          </p>
+          <p>
+            <input v-model="phoneCode" style="width: 100px" placeholder="请输入验证码"></input>
+            <button type="button" id="phoneCodeBtn" name="button" @click="sendPhoneCode">{{sendCodeMsg}}</button>
+          </p>
+          <p class="usePwd">
+            <a href="javascript:;">使用密码登录</a>
+          </p>
+          <p class="loginBtn">
+            <Button @click="doLogin" style="width: 226px;height: 38px;" type="primary">登录</Button>
+          </p>
+        </div>
+      </div>
+
       <Carousel v-model="value1" autoplay arrow="never" :autoplay-speed="4000">
         <Carousel-item>
           <img src="/images/ad1.png" alt="">
@@ -80,6 +101,29 @@
     </div>
   </div>
 </template>
+<style media="screen">
+#login input {
+  margin: 0 20px;
+  border: none !important;
+  border-bottom: 1px solid #dadada !important;
+  outline: 0;
+  display: inline-block;
+  width: 100%;
+  height: 32px;
+  line-height: 1.5;
+  padding: 4px 7px;
+  font-size: 12px;
+  color: #495060;
+  background-color: #fff;
+  background-image: none;
+  position: relative;
+  cursor: text;
+  transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;
+}
+#login input::-moz-placeholder{color:#bbbec4;opacity:1}
+#login input::-ms-input-placeholder{color:#bbbec4}
+#login input::-webkit-input-placeholder{color:#bbbec4}
+</style>
 <style media="screen" scoped>
   #app .indexContainer {
     left: 0;
@@ -89,6 +133,62 @@
     -moz-transition: all 2s; /* Firefox 4 */
     -webkit-transition: all 2s; /* Safari 和 Chrome */
     -o-transition: all 2s; /* Opera */
+  }
+  #loginContainer {
+    position: relative;
+    width: 1200px;
+    margin: auto;
+  }
+  #login {
+    width: 250px;
+    height: 310px;
+    position: absolute;
+    top: 20px;
+    right: 0;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+    z-index: 2;
+    background: #fff;
+    border-radius: 5px;
+  }
+  #login h3 {
+    text-align: center;
+  }
+  #login > p {
+    margin-bottom: 10px;
+  }
+  .usePwd {
+    text-align: right;
+    font-size: 12px;
+    margin: 30px 20px;
+
+  }
+  .usePwd a {
+    text-decoration: underline;
+    color: #666;
+  }
+  .usePwd a:hover {
+    color: #2d8cf0;
+  }
+  .loginBtn {
+    text-align: center;
+    margin: 0 0 20px 0;
+  }
+  .imgCode img {
+    width: 90px !important;
+    vertical-align: middle;
+  }
+  #phoneCodeBtn {
+    width: 90px;
+    height: 26px;
+    background: #ccc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: 0;
+  }
+  .ads {
+    position: relative;;
   }
   .header {
     height: 110px;
@@ -108,7 +208,7 @@
   .nav li {
     float: left;
     padding: 10px 20px;
-    font-size: 24px;
+    font-size: 20px;
   }
   .nav li:hover {
     cursor: pointer;
@@ -224,14 +324,114 @@
 export default {
   data() {
     return {
-      value1: 0
+      value1: 0,
+      phone: '',
+      imgCode: '',
+      phoneCode: '',
+      showLogin: false,
+      sendCodeMsg: '发送验证码',
+      sendCodeMsgNum: 0,
+      imgCodeUrl: ''
     }
   },
+  created() {
+    this.getNewImgCode();
+  },
   methods: {
+    getNewImgCode() {
+      var that = this;
+      $.get('http://39.108.113.222/api/v1/captcha', function(res) {
+        that.imgCodeUrl = res.data.src;
+      })
+    },
+    getPhoneCode() {
+      var _phone = this.phone, that = this;
+      if(!_phone) {
+        this.$Message.warning('请输入手机号码！');
+        return false;
+      }
+      if(_phone.length != 11 || !Number(_phone)) {
+        this.$Message.warning('请输入正确的手机号码！');
+        return false;
+      }
+      if(!this.imgCode) {
+        this.$Message.warning('请输入校验码！');
+        return false;
+      }
+      const msg = this.$Message.loading({
+          content: '获取中，请稍后...',
+          duration: 0
+      });
+      var url = 'http://39.108.113.222/api/v1/verify-code/get?cellphone='+_phone+'&captcha='+this.imgCode+'&use_type=login'
+      $.get(url, function(res) {
+        msg();
+        if(res.errcode === 0) {
+          that.$Message.success('获取成功')
+        } else {
+          that.$Message.warning(res.message);
+        }
+      })
+      return true;
+    },
+    doLogin() {
+      var _phone = this.phone, _phoneCode = this.phoneCode, that = this;;
+      if(!_phone) {
+        this.$Message.warning('请输入手机号码！');
+        return false;
+      }
+      if(_phone.length != 11 || !Number(_phone)) {
+        this.$Message.warning('请输入正确的手机号码！');
+        return false;
+      }
+      if(!this.phoneCode) {
+        this.$Message.warning('请输入验证码！');
+        return false;
+      }
+      const msg = this.$Message.loading({
+          content: '登录中，请稍后...',
+          duration: 0
+      });
+      $.post("http://39.108.113.222/api/v1/users/login-verifycode",{
+        cellphone: _phone,
+        verify_code: _phoneCode
+      },function(res){
+        msg();
+        if(res.errcode === 0) {
+          that.$Message.success('登录成功');
+          location.href = '/#/tradingQuotations';
+        } else {
+          that.$Message.warning(res.message);
+        }
+      });
+    },
     goAnchor(selector) {
       var anchor = document.querySelector(selector);
       $('#indexContainer').animate({scrollTop: anchor.offsetTop}, 500);
+    },
+    showLoginPanel() {
+      this.showLogin = true;
+    },
+    sendPhoneCode() {
+      var that = this, interval = null;
+      if(this.sendCodeMsgNum > 0) {
+        return false;
+      }
+      if(!this.getPhoneCode()){
+        return false;
+      };
+      this.sendCodeMsgNum = 60;
+      this.sendCodeMsg = this.sendCodeMsgNum + '秒后重发';
+      interval = setInterval(function() {
+        that.sendCodeMsgNum -= 1;
+        if(that.sendCodeMsgNum == 0) {
+          that.sendCodeMsg = '发送验证码';
+          clearInterval(interval);
+        }else{
+          that.sendCodeMsg = that.sendCodeMsgNum + '秒后重发';
+        }
+      }, 1000);
     }
+
   }
 }
 </script>
