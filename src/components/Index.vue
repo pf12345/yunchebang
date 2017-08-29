@@ -16,21 +16,28 @@
     <div class="ads">
       <div id="loginContainer" v-if="showLogin">
         <div class="login" id="login">
-          <h3>登录</h3>
+          <h3>登录 <span id="hideBtn" @click="hideLogin"><Icon type="ios-arrow-up"></Icon></span></h3>
           <p><input v-model="phone" style="width: 214px" placeholder="请输入手机号"></input></p>
-          <p class="imgCode">
+          <p v-if="showPwdLogin"><input type="password" v-model="password" style="width: 214px" placeholder="请输入密码"></input></p>
+          <p class="imgCode" v-if="!showPwdLogin">
             <input v-model="imgCode" style="width: 100px" placeholder="请输入校验码"></input>
             <img :src="imgCodeUrl" alt="" @click="getNewImgCode">
           </p>
-          <p>
+          <p v-if="!showPwdLogin">
             <input v-model="phoneCode" style="width: 100px" placeholder="请输入验证码"></input>
             <button type="button" id="phoneCodeBtn" name="button" @click="sendPhoneCode">{{sendCodeMsg}}</button>
           </p>
-          <p class="usePwd">
-            <a href="javascript:;">使用密码登录</a>
+          <p class="usePwd" v-if="!showPwdLogin">
+            <a href="javascript:;" @click="showLoginType('pwd')">使用密码登录</a>
           </p>
-          <p class="loginBtn">
+          <p class="usePwd" v-if="showPwdLogin" style="margin-top: 72px;">
+            <a href="javascript:;" @click="showLoginType('code')">使用验证码登录</a>
+          </p>
+          <p class="loginBtn" v-if="!showPwdLogin">
             <Button @click="doLogin" style="width: 226px;height: 38px;" type="primary">登录</Button>
+          </p>
+          <p class="loginBtn" v-if="showPwdLogin">
+            <Button @click="doLoginPwd" style="width: 226px;height: 38px;" type="primary">登录</Button>
           </p>
         </div>
       </div>
@@ -152,9 +159,21 @@
   }
   #login h3 {
     text-align: center;
+    position: relative;
   }
   #login > p {
     margin-bottom: 10px;
+  }
+  #hideBtn {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: #2391e2;
+    position: absolute;
+    right: 15px;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
   }
   .usePwd {
     text-align: right;
@@ -331,7 +350,9 @@ export default {
       showLogin: false,
       sendCodeMsg: '发送验证码',
       sendCodeMsgNum: 0,
-      imgCodeUrl: ''
+      imgCodeUrl: '',
+      showPwdLogin: false,
+      password: ''
     }
   },
   created() {
@@ -404,12 +425,46 @@ export default {
         }
       });
     },
+    doLoginPwd() {
+      var _phone = this.phone, _password = this.password, that = this;;
+      if(!_phone) {
+        this.$Message.warning('请输入手机号码！');
+        return false;
+      }
+      if(_phone.length != 11 || !Number(_phone)) {
+        this.$Message.warning('请输入正确的手机号码！');
+        return false;
+      }
+      if(!_password) {
+        this.$Message.warning('请输入密码！');
+        return false;
+      }
+      const msg = this.$Message.loading({
+          content: '登录中，请稍后...',
+          duration: 0
+      });
+      $.post("http://39.108.113.222/api/v1/users/login",{
+        cellphone: _phone,
+        password: _password
+      },function(res){
+        msg();
+        if(res.errcode === 0) {
+          that.$Message.success('登录成功');
+          location.href = '/#/tradingQuotations';
+        } else {
+          that.$Message.warning(res.message);
+        }
+      });
+    },
     goAnchor(selector) {
       var anchor = document.querySelector(selector);
       $('#indexContainer').animate({scrollTop: anchor.offsetTop}, 500);
     },
     showLoginPanel() {
       this.showLogin = true;
+    },
+    hideLogin() {
+      this.showLogin = false;
     },
     sendPhoneCode() {
       var that = this, interval = null;
@@ -430,6 +485,13 @@ export default {
           that.sendCodeMsg = that.sendCodeMsgNum + '秒后重发';
         }
       }, 1000);
+    },
+    showLoginType(type) {
+      if(type == 'pwd') {
+        this.showPwdLogin = true;
+      }else {
+        this.showPwdLogin = false;
+      }
     }
 
   }
