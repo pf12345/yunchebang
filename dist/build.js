@@ -49881,7 +49881,7 @@ exports = module.exports = __webpack_require__(29)(undefined);
 
 
 // module
-exports.push([module.i, "\n.leftMenu[data-v-4554a779] {\n  color: #fff;\n  font-size: 16px;\n}\n.logo[data-v-4554a779] {\n  height: 120px;\n  line-height: 60px;\n  text-align: center;\n  color: #fff;\n}\n.nav li[data-v-4554a779]{\n  height: 55px;\n  line-height: 55px;\n  padding: 0 18px;\n  cursor: pointer;\n}\n.nav li.selected[data-v-4554a779] {\n  background: #fff;\n  color: #2391e2;\n}\n\n", ""]);
+exports.push([module.i, "\n.leftMenu[data-v-4554a779] {\n  color: #fff;\n  font-size: 16px;\n}\n.logo[data-v-4554a779] {\n  height: 110px;\n  line-height: 60px;\n  text-align: center;\n  color: #fff;\n}\n.nav li[data-v-4554a779]{\n  height: 55px;\n  line-height: 55px;\n  padding: 0 18px;\n  cursor: pointer;\n  font-size: 20px;\n  font-weight: 500;\n  margin: 14px 0;\n}\n.nav li.selected[data-v-4554a779] {\n  background: #fff;\n  color: #2391e2;\n}\n\n", ""]);
 
 // exports
 
@@ -62618,9 +62618,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "leftMenu"
-  }, [_c('div', {
-    staticClass: "logo"
-  }, [_vm._v("\n    云车邦\n  ")]), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "nav"
   }, [_c('ul', [_c('li', {
     class: _vm.curLeftMenu == 'tradingQuotations' ? 'selected' : '',
@@ -62651,7 +62649,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("订单")])])])])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "logo"
+  }, [_c('img', {
+    staticStyle: {
+      "height": "34px",
+      "margin-top": "20px"
+    },
+    attrs: {
+      "src": "/images/logo@2x.png",
+      "alt": ""
+    }
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

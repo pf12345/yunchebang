@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="leftMenu">
     <div class="logo">
-      云车邦
+      <img src="/images/logo@2x.png" alt="" style="height: 34px;margin-top: 20px;">
     </div>
     <div class="nav">
       <ul>
@@ -32,7 +32,7 @@ export default {
     font-size: 16px;
   }
   .logo {
-    height: 120px;
+    height: 110px;
     line-height: 60px;
     text-align: center;
     color: #fff;
@@ -42,6 +42,9 @@ export default {
     line-height: 55px;
     padding: 0 18px;
     cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 14px 0;
   }
   .nav li.selected {
     background: #fff;
