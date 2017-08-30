@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 import App from './App.vue'
 import router from './router'
 import iView from 'iview';
+import common from './api/common'
 // import './test.ts';
 // import './../dist/libs/css/iview.css'; // 使用 CSS
 
@@ -19,7 +20,18 @@ Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start();
-  next();
+  if(to.path !== '/') {
+    common.getUserInfo(function(res) {
+      if(res.errcode === 0) {
+        next();
+      }else{
+        iView.LoadingBar.finish();
+        router.replace('/')
+      }
+    })
+  } else {
+    next();
+  }
 });
 
 router.afterEach((to, from, next) => {

@@ -44049,19 +44049,22 @@ var _iview = __webpack_require__(136);
 
 var _iview2 = _interopRequireDefault(_iview);
 
+var _common = __webpack_require__(71);
+
+var _common2 = _interopRequireDefault(_common);
+
 var _store = __webpack_require__(134);
 
 var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 _vue2.default.use(_vuex2.default);
 // import './test.ts';
 // import './../dist/libs/css/iview.css'; // 使用 CSS
 
-
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 
 _vue2.default.use(_iview2.default);
 
@@ -44069,7 +44072,18 @@ _vue2.default.config.productionTip = false;
 
 _router2.default.beforeEach(function (to, from, next) {
   _iview2.default.LoadingBar.start();
-  next();
+  if (to.path !== '/') {
+    _common2.default.getUserInfo(function (res) {
+      if (res.errcode === 0) {
+        next();
+      } else {
+        _iview2.default.LoadingBar.finish();
+        _router2.default.replace('/');
+      }
+    });
+  } else {
+    next();
+  }
 });
 
 _router2.default.afterEach(function (to, from, next) {
